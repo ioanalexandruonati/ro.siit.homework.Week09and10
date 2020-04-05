@@ -1,13 +1,26 @@
 package secondTry;
 
 
+import statisticsRepo.ComputingEndTime;
+import statisticsRepo.ComputingStartTime;
+import statisticsRepo.TotalTimeRepo;
+
 import javax.swing.*;
+import java.util.ArrayList;
 
 //This was my second try at it, with splitting the string.
 
 public class CalculatorLength2 {
 
    public static void main(String[] args) {
+
+      ArrayList<Long> longArrayListStartTime = new ArrayList<>();
+
+      long startTime = System.nanoTime();
+
+      ComputingStartTime startTimeOfRun = new ComputingStartTime(startTime, longArrayListStartTime);
+
+      startTimeOfRun.addStartTimeOfRun(startTime);
 
       String cmd = null;
 
@@ -22,14 +35,25 @@ public class CalculatorLength2 {
 
          Convert a = new Convert(numbersAndMeasurementUnitArray, measurementUnitOfResult);
 
-         a.convertToResultUnitOfMeasurement(a.convertToMilimeters(numbersAndMeasurementUnitArray,measurementUnitOfResult),measurementUnitOfResult);
+         a.convertToResultUnitOfMeasurement(a.convertToMilimeters(numbersAndMeasurementUnitArray, measurementUnitOfResult), measurementUnitOfResult);
 
          a.calculate();
 
          JOptionPane.showMessageDialog(null, String.valueOf(a.calculate()));
 
-
          cmd = JOptionPane.showInputDialog("Introduceti x pentru a incheia.");
-      } while (!cmd.equalsIgnoreCase("x"));
+      } while (! cmd.equalsIgnoreCase("x"));
+
+      long endTime = System.nanoTime();
+
+      long totalTime = endTime - startTime;
+
+      ArrayList<Long> longArrayListEndTime = new ArrayList<>();
+
+      ComputingEndTime endTimeOfRun = new ComputingEndTime(endTime, longArrayListEndTime);
+
+      endTimeOfRun.addEndTimeOfRun(endTime);
+
+      TotalTimeRepo totalTimeRepo = new TotalTimeRepo(startTime, endTime);
    }
 }
